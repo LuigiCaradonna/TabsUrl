@@ -11,7 +11,7 @@ let modal;
 let overlay;
 
 function initModal(tabs) {
-  modal.setAttribute("id", 't2tModal');
+  modal.setAttribute("id", 'tabsurlModal');
   modal.style.cssText=`
     background-color: #fefefe;
     margin: 15% auto;
@@ -40,7 +40,7 @@ function initModal(tabs) {
 };
 
 function initOverlay() {
-  overlay.setAttribute("id", 't2tOverlay');
+  overlay.setAttribute("id", 'tabsurlOverlay');
   overlay.style.cssText=`
     height: 100vh;
     left: 0;
@@ -64,8 +64,8 @@ function init(tabs) {
   modal = document.createElement('div');
   overlay = document.createElement('div');
 
-  if(document.getElementById('t2tOverlay'))
-    document.getElementById('t2tOverlay').remove();
+  if(document.getElementById('tabsurlOverlay'))
+    document.getElementById('tabsurlOverlay').remove();
   else {
     initModal(tabs);
     initOverlay();
