@@ -1,0 +1,25 @@
+#tabsurlModal {
+    
+    background-color: #fefefe;
+    margin: 15% auto;
+    border: 1px solid #888;
+    padding: 20px;
+    width: 80%;
+}
+
+#tabsurlOverlay {
+    
+    height: 100vh;
+    left: 0;
+    right: 0;
+    top:0;
+    position: fixed;
+    z-index: 9998;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+#closeTabsUrlIcon {
+    font-size:24px;
+    font-weight:bold;
+    cursor:pointer;
+}

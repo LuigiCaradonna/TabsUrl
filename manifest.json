@@ -26,7 +26,8 @@
 	"content_scripts": [
 		{
 		  "matches": ["<all_urls>"],
-		  "js": ["cs.js"]
+		  "js": ["cs.js"],
+		  "css": ["cs.css"]
 		}
 	  ],
 	"permissions": ["activeTab", "<all_urls>"]

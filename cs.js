@@ -17,15 +17,8 @@ let overlay = document.createElement('div');
 // Initilizes the content of the modal window
 function initModal(tabs) {
   modal.setAttribute("id", 'tabsurlModal');
-  modal.style.cssText=`
-    background-color: #fefefe;
-    margin: 15% auto;
-    border: 1px solid #888;
-    padding: 20px;
-    width: 80%;
-  `;
   modal.innerHTML = `
-      <span id="closeTabsUrlIcon" class="close" style="font-size:24px;font-weight:bold;cursor:pointer">&times;</span>
+      <span id="closeTabsUrlIcon">&times;</span>
   `;
 
   // Contains the list of the URLs
@@ -35,13 +28,20 @@ function initModal(tabs) {
 
   // Loops through the tabs
   for (let tab of tabs) {
-    // p element to contain a URL
-    let tabLink = document.createElement('p');
-
-    // Adds the URL to the p element
-    tabLink.textContent = tab.url;
-    // Adds the p element to the URLs container
-    currentTabs.appendChild(tabLink);
+    // If the tab has a URL
+    if (tab.url != '' && tab.url != undefined) {
+      let checkbox = document.createElement('input');
+      checkbox.setAttribute("type", "checkbox");
+      checkbox.setAttribute("id", tab.id);
+      // p element to contain a URL
+      let tabLink = document.createElement('p');
+  
+      // Adds the URL to the p element
+      tabLink.textContent = tab.url;
+      // Adds the p element to the URLs container
+      currentTabs.appendChild(checkbox);
+      currentTabs.appendChild(tabLink);
+    }
   }
 
   // Adds the URLs to the div
@@ -53,15 +53,6 @@ function initModal(tabs) {
 // Initilizes the overlay
 function initOverlay() {
   overlay.setAttribute("id", 'tabsurlOverlay');
-  overlay.style.cssText=`
-    height: 100vh;
-    left: 0;
-    right: 0;
-    top:0;
-    position: fixed;
-    z-index: 9998;
-    background: rgba(0, 0, 0, 0.4);
-  `;
   // Adds the content to the overlay
   overlay.appendChild(modal);
   // Adds the overlay to the page
