@@ -1,14 +1,4 @@
-#tabsurlModal {
-    
-    background-color: #fefefe;
-    margin: 15% auto;
-    border: 1px solid #888;
-    padding: 20px;
-    width: 80%;
-}
-
 #tabsurlOverlay {
-    
     height: 100vh;
     left: 0;
     right: 0;
@@ -18,8 +8,43 @@
     background: rgba(0, 0, 0, 0.4);
 }
 
-#closeTabsUrlIcon {
-    font-size:24px;
-    font-weight:bold;
-    cursor:pointer;
+#tabsurlModal {
+    max-height: calc(100% - 150px);
+    background-color: #fefefe;
+    margin: 3% auto;
+    border: 1px solid #888;
+    padding: 20px;
+    width: 80%;
+}
+
+.tabsurlCloseModal {
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding-left: 4px;
+    color: #f00;
+}
+
+.tabsurlBtn {
+	border: 0;
+	background: none;
+	box-shadow: none;
+	padding: 8px;
+	background-color: #458FD0;
+	color: #fff;
+	border-radius: 10px;
+	cursor: pointer;
+    font-size: 16px;
+}
+
+.tabsurlBtn:hover {
+	background-color: #296ba5;
+}
+
+#tabsurlTable td, #tabsurlTable th {
+    padding: 8px 5px;
+}
+
+#tabsurlFooter {
+	padding: 15px 0 0 0;
 }

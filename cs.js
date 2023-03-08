@@ -7,44 +7,50 @@ chrome.runtime.onMessage.addListener(
     }
 });
 
-// Container for the URLs list
-let urls_list = document.createElement('div');
 // Modal Window
 let modal = document.createElement('div');
 // Overlay containing all the elements
 let overlay = document.createElement('div');
 
-// Initialize the container for the URL
-function initUrlsList() {
-  urls_list.setAttribute("class", 'tabsurlUrlsList');
-}
-
 // Initilizes the content of the modal window
 function initModal(tabs) {
   modal.setAttribute("id", 'tabsurlModal');
   modal.innerHTML = `
-      <span id="closeTabsUrlIcon">&times;</span>
+      <span class="tabsurlCloseModal">&times;</span>
   `;
 
-  // Contains the list of the URLs
-  let current_tabs = document.createDocumentFragment();
+  const modal_footer = document.createElement("div");
+  modal_footer.setAttribute("id", 'tabsurlFooter');
+  modal_footer.innerHTML = `<button class="tabsurlBtn">Save txt</button>`;
 
-  urls_list.textContent = '';
+  const table_list = document.createElement("table");
+  const table_header_list = document.createElement("thead");
+  const table_header_tr_list = document.createElement("tr");
+  const table_header_th_list = document.createElement("th");
+  const table_body_list = document.createElement("tbody");
+
+  table_list.setAttribute("id", 'tabsurlTable');
+
+  table_header_th_list.innerHTML = `<input type="checkbox">`;
+  table_header_tr_list.appendChild(table_header_th_list);
+  table_header_list.appendChild(table_header_tr_list);
+  table_list.appendChild(table_header_list);
+  table_list.appendChild(table_body_list);
 
   // Loops through the tabs
   for (let tab of tabs) {
     // If the tab has an URL
     if (tab.url != undefined && tab.url != '') {
-      const url_entry = urlElement(tab.id, tab.url);
-      // Adds the p element to the URLs container
-      current_tabs.appendChild(url_entry);
+      const url_row = urlElement(tab.id, tab.url);
+      // Adds the table row to the URLs table
+      table_body_list.appendChild(url_row);
     }
   }
 
-  // Adds the URLs to the div
-  urls_list.appendChild(current_tabs);
-  // Add the div to the modal window
-  modal.appendChild(urls_list);
+  // Add table to the modal window
+  modal.appendChild(table_list);
+  // Add footer to the modal window
+  modal.appendChild(modal_footer);
 };
 
 // Initilizes the overlay
@@ -61,35 +67,25 @@ function destroy() {
   overlay.remove();
 }
 
-// Builds a URL entry
+// Builds a table row
 function urlElement(id, url) {
-  // Container for the URL entry
-  const url_container = document.createElement('div');
-  // Checkbox to select the relative URL
+  const tr = document.createElement("tr");
+  const td_check = document.createElement("td");
+  const td_title = document.createElement("td");
   const checkbox = document.createElement('input');
-  // p element to contain a URL
-  const tab_url = document.createElement('p');
 
-  // Setup the container
-  url_container.setAttribute("class", 'tabsurlContainer');
-
-  // Setup the checkbox, checked by default
   checkbox.setAttribute("type", 'checkbox');
   checkbox.setAttribute("id", id);
   checkbox.setAttribute("class", 'tabsurlSelector');
   checkbox.setAttribute("checked", true);
 
-  // Setup the paragraph containing the URL
-  tab_url.setAttribute("class", 'tabsurlTabUrl');
-  // Adds the URL to the p element
-  tab_url.textContent = url;
+  td_check.appendChild(checkbox);
+  td_title.textContent = url;
 
-  // Add the checkbox and the URL to the container
-  url_container.appendChild(checkbox);
-  url_container.appendChild(tab_url);
+  tr.appendChild(td_check);
+  tr.appendChild(td_title);
 
-  // return the container
-  return url_container;
+  return tr;
 }
 
 // Initializes all the elements
@@ -98,7 +94,6 @@ function init(tabs) {
   if(document.getElementById('tabsurlOverlay'))
     document.getElementById('tabsurlOverlay').remove();
   else {
-    initUrlsList();
     initModal(tabs);
     initOverlay();
   }
@@ -111,7 +106,7 @@ function init(tabs) {
 
   // Remove the overlay when a click occurs outside of the modal or on the X icon
   document.body.addEventListener("click", (e) => {
-    if (e.target.id == 'tabsurlOverlay' || e.target.id == 'closeTabsUrlIcon') {
+    if (e.target.id == 'tabsurlOverlay' || e.target.classList.contains('tabsurlCloseModal')) {
       destroy();
     }
   });
