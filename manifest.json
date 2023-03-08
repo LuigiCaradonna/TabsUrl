@@ -1,0 +1,31 @@
+{
+	"manifest_version": 2,
+	"name": "t2t",
+	"description": "Draw a ruler across any webpage to check the width, height, or alignment of page elements in pixels.",
+	"version": "1.0.0",
+	"applications": {
+		"gecko": {
+			"id": "info@luigicaradonna.it"
+		}
+	},
+	"icons": {
+		"16": "icons/tabsurl2text-16.png",
+		"32": "icons/tabsurl2text.png",
+		"48": "icons/tabsurl2text-48.png",
+		"92": "icons/tabsurl2text-92.png"
+	},
+	"browser_action": {
+	    "default_icon": "icons/tabsurl2text-32.png",
+	    "default_title": "t2t"
+	},
+	"background": {
+		"scripts": ["polyfill.js", "bg.js"]
+	},
+	"content_scripts": [
+		{
+		  "matches": ["<all_urls>"],
+		  "js": ["cs.js"]
+		}
+	  ],
+	"permissions": ["activeTab", "<all_urls>"]
+}
