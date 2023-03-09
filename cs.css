@@ -43,6 +43,7 @@
 
 #tabsurlTable td, #tabsurlTable th {
     padding: 8px 5px;
+    text-align: left;
 }
 
 #tabsurlFooter {

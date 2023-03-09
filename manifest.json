@@ -3,7 +3,7 @@
 	"name": "TabsUrl",
 	"homepage_url": "https://github.com/LuigiCaradonna/TabsUrl",
 	"description": "Retrieves the URLs from the open tabs and stores them into a text file.",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"applications": {
 		"gecko": {
 			"id": "info@luigicaradonna.it"
