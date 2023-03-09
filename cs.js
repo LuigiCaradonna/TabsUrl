@@ -8,11 +8,9 @@ chrome.runtime.onMessage.addListener(
 });
 
 // This will contain the data of the open tabs
-let urls_list = {};
+let urls_list = [];
 // This will contain the checkboxes' ids of the selected URLs
 let urls_selected = [];
-// This will contain the data of the selected tabs to be saved
-let urls_to_save = {};
 
 // Modal Window
 let modal = document.createElement('div');
@@ -48,7 +46,7 @@ function initModal(tabs) {
     // If the tab has an URL
     if (tab.url != undefined && tab.url != '') {
       // Insert the tab's data into the urls list
-      urls_list[tab.id] = {title: tab.title, url: tab.url};
+      urls_list.push({id: tab.id, title: tab.title, url: tab.url});
       // Add the tab's id to the selected urls (all the urls are selected by default)
       urls_selected.push(tab.id);
       // Create the table row for this tab
@@ -57,6 +55,8 @@ function initModal(tabs) {
       table_body_list.appendChild(url_row);
     }
   }
+
+  console.log(urls_selected);
 
   // Add table to the modal window
   modal.appendChild(table_list);
@@ -74,7 +74,7 @@ function initOverlay() {
 }
 
 // Removes the overlay from the page
-function destroy() {
+function removeOverlay() {
   overlay.remove();
 }
 
@@ -102,30 +102,48 @@ function urlElement(id, title) {
 }
 
 // Builds a list containing only the selected URLs to save
-function buildUrlListSave() {
-  // Clear the object
-  urls_to_save = {};
+function urlsListToSave() {
+  // Data of the selected tabs to be saved
+  let urls_to_save = {};
   // Text to save into the file
   let content = '';
 
+  let key_int = 0;
+
+  console.log('urls selected: ' + urls_selected);
   // Loop through all the tabs data
   for (const [key, value] of Object.entries(urls_list)) {
+    console.log('url_list key: ' + value.id + ': ' + value.title);
+    key_int = parseInt(value.id);
     // If the current tab is among the selected ones
-    if ( urls_selected.includes(parseInt(key)) ) {
+    if ( urls_selected.includes(key_int) ) {
+      console.log('Adding tab: ' + key_int);
       // Add the tab data
-      urls_to_save[key] = urls_list[key];
+      urls_to_save[value.id] = {id: value.id, title: value.title, url: value.url};
     }
   }
 
-  // Build the content of the file to save
-  for (const [key, value] of Object.entries(urls_to_save))  {
-    content += value.url + '\n';
-  }
+  console.log('urls to save: ' + urls_to_save);
+
+  // Get the string to be saved
+  content = buildTextList(urls_to_save);
 
   // Save to file
   saveToFile(content);
 }
 
+// Builds and returns the string to be saved
+function buildTextList(list) {
+  let text = '';
+  // Build the content of the file to save
+  for (const [key, value] of Object.entries(list))  {
+    text += value.url + '\n';
+  }
+  
+  return text;
+}
+
+// Saves the given string into a text file
 function saveToFile(content) {
   const textToBlob = new Blob([content], { type: 'text/plain' });
   const sFileName = 'tabsurl.txt';
@@ -155,29 +173,41 @@ function init(tabs) {
   initModal(tabs);
   initOverlay();
 
-  // Remove the overlay when ESC is pressed
-  document.body.addEventListener('keyup',(e)=>{
-    if (e.keyCode === 27)
-      destroy();
+  // Remove the overlay when the ESC key is pressed
+  document.body.addEventListener('keyup',(e) => {
+    if (e.key === 'Escape')
+      removeOverlay();
   });
 
   // Mouse click event listener
   document.body.addEventListener("click", (e) => {
     // Remove the overlay when a click occurs outside of the modal or on the close icon
     if (e.target.id == 'tabsurlOverlay' || e.target.classList.contains('tabsurlCloseModal')) {
-      destroy();
+      removeOverlay();
     }
     else if (e.target.classList.contains('tabsurlSelector')) {
       // Get the checkbox
       const cb = document.getElementById(e.target.id);
       // If the checkbox has been found
-      if (cb)
+      if (cb) {
         // Add or remove the id from the list of the selected URLs according to the checkbox status
-        cb.checked == true ? urls_selected.push(e.target.id) : urls_selected.pop(e.target.id);
+        if (cb.checked == true) {
+          console.log('Add id: ' + e.target.id);
+          urls_selected.push(parseInt(e.target.id));
+          console.log(urls_selected);
+        }
+        else {
+          console.log('Remove id: ' + e.target.id);
+          const index = urls_selected.indexOf(parseInt(e.target.id));
+          if (index > -1) { // only splice array when item is found
+            urls_selected.splice(index, 1); // 2nd parameter means remove one item only
+          }
+          console.log(urls_selected);
+        }
+      }
     }
     else if (e.target.id == 'tabsurlSaveTxt') {
-      buildUrlListSave();
+      urlsListToSave();
     }
-  });
-  
+  }); 
 }
