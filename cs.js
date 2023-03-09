@@ -11,6 +11,8 @@ chrome.runtime.onMessage.addListener(
 let urls_list = {};
 // This will contain the checkboxes' ids of the selected URLs
 let urls_selected = [];
+// This will contain the data of the selected tabs to be saved
+let urls_to_save = {};
 
 // Modal Window
 let modal = document.createElement('div');
@@ -24,7 +26,7 @@ function initModal(tabs) {
 
   const modal_footer = document.createElement("div");
   modal_footer.setAttribute("id", 'tabsurlFooter');
-  modal_footer.innerHTML = `<button class="tabsurlBtn">Save txt</button>`;
+  modal_footer.innerHTML = `<button id="tabsurlSaveTxt" class="tabsurlBtn">Save txt</button>`;
 
   const table_list = document.createElement("table");
   const table_header_list = document.createElement("thead");
@@ -99,6 +101,21 @@ function urlElement(id, title) {
   return tr;
 }
 
+// Builds a list containing only the selected URLs to save
+function buildUrlListSave() {
+  // Clear the object
+  urls_to_save = {};
+
+  // Loop through all the tabs data
+  for (const [key, value] of Object.entries(urls_list)) {
+    // If the current tab is among the selected ones
+    if ( urls_selected.includes(key) ) {
+      // Add the tab data
+      urls_to_save[key] = urls_list[key];
+    }
+  }
+}
+
 // Initializes all the elements
 function init(tabs) {
   // Remove the overlay if exists
@@ -127,6 +144,9 @@ function init(tabs) {
       if (cb)
         // Add or remove the id from the list of the selected URLs according to the checkbox status
         cb.checked == true ? urls_selected.push(e.target.id) : urls_selected.pop(e.target.id);
+    }
+    else if (e.target.id == 'tabsurlSaveTxt') {
+      
     }
   });
   
