@@ -105,15 +105,45 @@ function urlElement(id, title) {
 function buildUrlListSave() {
   // Clear the object
   urls_to_save = {};
+  // Text to save into the file
+  let content = '';
 
   // Loop through all the tabs data
   for (const [key, value] of Object.entries(urls_list)) {
     // If the current tab is among the selected ones
-    if ( urls_selected.includes(key) ) {
+    if ( urls_selected.includes(parseInt(key)) ) {
       // Add the tab data
       urls_to_save[key] = urls_list[key];
     }
   }
+
+  // Build the content of the file to save
+  for (const [key, value] of Object.entries(urls_to_save))  {
+    content += value.url + '\n';
+  }
+
+  // Save to file
+  saveToFile(content);
+}
+
+function saveToFile(content) {
+  const textToBlob = new Blob([content], { type: 'text/plain' });
+  const sFileName = 'tabsurl.txt';
+
+  let newLink = document.createElement("a");
+  newLink.download = sFileName;
+
+  if (window.webkitURL != null) {
+      newLink.href = window.webkitURL.createObjectURL(textToBlob);
+  }
+  else {
+      newLink.href = window.URL.createObjectURL(textToBlob);
+      newLink.style.display = "none";
+      document.body.appendChild(newLink);
+  }
+
+  newLink.click();
+  newLink.remove();
 }
 
 // Initializes all the elements
@@ -146,7 +176,7 @@ function init(tabs) {
         cb.checked == true ? urls_selected.push(e.target.id) : urls_selected.pop(e.target.id);
     }
     else if (e.target.id == 'tabsurlSaveTxt') {
-      
+      buildUrlListSave();
     }
   });
   
