@@ -58,5 +58,37 @@ function init(tabs) {
     else if (e.target.id == 'tabsurlSaveTxt') {
       saveToFile();
     }
+    else if (e.target.id == 'tabsurlSaveStorage') {
+      saveToStorage();
+    }
+    else if (e.target.id == 'tabsurlOpenStored') {
+      openStored();
+    }
   }); 
+}
+
+// Builds and returns an object containing only the data of the selected tabs to save
+function tabsListToSave() {
+  // Data of the selected tabs to be saved
+  let tabs_to_save = {};
+
+  let key_int = 0;
+
+  console.debug('tabs selected: ' + tabs_selected);
+  // Loop through all the tabs data
+  for (const [key, value] of Object.entries(tabs_data_list)) {
+      console.debug('tabs_list key: ' + value.id + ': ' + value.title);
+      key_int = parseInt(value.id);
+      // If the current tab is among the selected ones
+      if ( tabs_selected.includes(key_int) ) {
+          console.debug('Adding tab: ' + key_int);
+          // Add the tab data
+          tabs_to_save[key_int] = {id: value.id, title: value.title, url: value.url};
+      }
+  }
+
+  console.debug('tabs to save: ' + tabs_to_save);
+
+  // Return the data of the tabs to save
+  return tabs_to_save;
 }

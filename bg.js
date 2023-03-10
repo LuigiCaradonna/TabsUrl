@@ -10,3 +10,15 @@ chrome.browserAction.onClicked.addListener(tab => {
 function getCurrentWindowTabs() {
   return browser.tabs.query({currentWindow: true});
 }
+
+chrome.runtime.onMessage.addListener(
+  function (request, sender) {
+    console.debug(request);
+
+    if (request.data) {
+      for (const [key, value] of Object.entries( request.data ))  {
+          let url = value.url;
+          chrome.tabs.create({url: url});
+      }
+    }
+});

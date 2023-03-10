@@ -3,7 +3,7 @@
 	"name": "TabsUrl",
 	"homepage_url": "https://github.com/LuigiCaradonna/TabsUrl",
 	"description": "Retrieves the URLs from the open tabs and stores them into a text file.",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"applications": {
 		"gecko": {
 			"id": "info@luigicaradonna.it"
@@ -13,6 +13,7 @@
 		"16": "icons/tabsurl-16.png",
 		"32": "icons/tabsurl-32.png",
 		"48": "icons/tabsurl-48.png",
+		"64": "icons/tabsurl-64.png",
 		"92": "icons/tabsurl-92.png",
 		"128": "icons/tabsurl-128.png"
 	},
@@ -21,14 +22,14 @@
 	    "default_title": "TabsUrl"
 	},
 	"background": {
-		"scripts": ["polyfill.js", "bg.js"]
+		"scripts": ["bg.js"]
 	},
 	"content_scripts": [
 		{
 		  "matches": ["<all_urls>"],
-		  "js": ["cs.js", "overlay.js", "modal.js", "table.js", "save_text.js"],
+		  "js": ["cs.js", "overlay.js", "modal.js", "table.js", "save_text.js", "save_storage.js"],
 		  "css": ["cs.css"]
 		}
 	  ],
-	"permissions": ["activeTab", "<all_urls>"]
+	"permissions": ["activeTab", "storage", "<all_urls>"]
 }
