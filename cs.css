@@ -1,10 +1,11 @@
 #tabsurlOverlay {
+    font-family: Arial, Helvetica, sans-serif;
     height: 100vh;
     left: 0;
     right: 0;
     top:0;
     position: fixed;
-    z-index: 9998;
+    z-index: 9999;
     background: rgba(0, 0, 0, 0.4);
 }
 
@@ -14,14 +15,19 @@
     margin: 3% auto;
     border: 1px solid #888;
     padding: 20px;
-    width: 80%;
+    width: 50%;
+}
+
+#tabsurlTCont {
+    max-height: 500px;
+    overflow: scroll;
 }
 
 .tabsurlCloseModal {
     font-size: 2rem;
     font-weight: bold;
     cursor: pointer;
-    padding-left: 4px;
+    padding-left: 8px;
     color: #f00;
 }
 
@@ -41,11 +47,50 @@
 	background-color: #296ba5;
 }
 
+.tabsurlGBtn {
+	background-color: #00c900;
+}
+
+.tabsurlGBtn:hover {
+	background-color: #00a500;
+}
+
+.tabsurlDBtn {
+	background-color: #ff0000;
+}
+
+.tabsurlDBtn:hover {
+	background-color: #c20000;
+}
+
+.tabsurlBtn:disabled {
+	background-color: #999;
+    cursor:not-allowed;
+}
+
+#tabsurlTable {
+    border: none;
+}
+#tabsurlTable tr {
+    padding: 0;
+    margin: 0;
+}
+
 #tabsurlTable td, #tabsurlTable th {
-    padding: 8px 5px;
+    padding: 5px 5px;
+    font-size: 16px;
     text-align: left;
+    border: none;
 }
 
 #tabsurlFooter {
 	padding: 15px 0 0 0;
+}
+
+.tabsurlBtn {
+    margin-left: 8px;
+}
+
+.tabsurlBtn:first-child {
+    margin-left: 0px;
 }
