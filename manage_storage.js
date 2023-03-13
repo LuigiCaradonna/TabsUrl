@@ -9,10 +9,10 @@ function saveToStorage() {
     clearStorage.then(() => {
         console.debug('Saving to storage');
         // Gets the selected tabs' data
-        const list = tabsListToSave();
-        console.debug(list);
+        const list_to_save = tabsListToSave();
+        console.debug(list_to_save);
         // Stores the list into the local storage
-        browser.storage.local.set(list).then(() => {
+        browser.storage.local.set(list_to_save).then(() => {
             console.debug("Tabs stored!");
         });
     });
@@ -22,10 +22,10 @@ function saveToStorage() {
 function openStored() {
     console.debug('Get stored');
     // Get the stored tabs
-    getStorage.then(list => {
+    getStorage.then(stored_list => {
         console.debug('Opening stored');
         // Notify the bg script to open them
-        notifyBackgroundPage(list);
+        notifyBackgroundPage(stored_list);
     });
 }
 

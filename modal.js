@@ -40,7 +40,7 @@ function initModal(tabs) {
   console.debug("list of tabs");
   console.debug(tabs);
 
-  // Loops through the open tabs
+  // Loops through all the open tabs
   for (let tab of tabs) {
     // If the page shown inside the tab has a URL
     if (tab.url != undefined && tab.url != '' && tab.url.startsWith('http')) {
@@ -71,12 +71,12 @@ function initModal(tabs) {
 // Reads the local storage and sets the store and delete buttons enabled/disablad
 function updateButtonsState() {
   // Get the data from the storage
-  getStorage.then(list => {
+  getStorage.then(updated_list => {
     console.debug("Get stored on update buttons");
-    console.debug(list);
-    console.debug(Object.keys(list).length);
+    console.debug(updated_list);
+    console.debug(Object.keys(updated_list).length);
     // If no tabs are stored
-    if (Object.keys(list).length === 0) {
+    if (Object.keys(updated_list).length === 0) {
       // Set the button to open the stored tabs as disabled
       getStoredBtn.setAttribute("disabled", '');
       // Set the button to delete the storage as disabled
