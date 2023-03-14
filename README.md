@@ -14,4 +14,4 @@ When some tabs are stired inside the storage, the buttons `Open stored` and `Del
 `Open stored` will open all the stored URLs inside new tabs.  
 `Delete stored` will delete all the URLs stored.  
 
-![Interface](/resources/tabsurl.png) 
+![Interface](./resources/tabsurl.png) 
