@@ -1,7 +1,17 @@
 # TabsUrl
 
-> This Firefox extension is in its **beta** stage.
+TabsUrl is a Firefox extension.
 
-This extension will access all the open tabs of the browser to grab the title and the URL of the displayed pages.  
-A list of all the open pages will appear inside a modal window where it will be possible to select/deselect them.  
-It will be possible to save the URLs inside a text file or to store them inside the browser's storage to be opened all at once with a single click in a second time.
+This extension will access all the open tabs of the browser to grab the titles and the URLs of the displayed pages.  
+It will be possible to save the URLs into a text file or inside the browser's storage to open them again in a second time.  
+
+### Usage
+Once the user clicks the extension's button, a modal window will appear.  
+A table inside the modal window will list all the titles of the open tabs with a ceckbox to select/deselect them.  
+A click on the `Save text` button will start the download of a text file containing the URLs.  
+A click on the `Store tabs` button will save the titles and URLs inside the browser's storage.  
+When some tabs are stired inside the storage, the buttons `Open stored` and `Delete stored` will become active.  
+`Open stored` will open all the stored URLs inside new tabs.  
+`Delete stored` will delete all the URLs stored.  
+
+![Interface](/resources/tabsurl.png) 

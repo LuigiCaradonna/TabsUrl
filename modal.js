@@ -1,18 +1,22 @@
 // Modal Window containing the interface
 const modal = document.createElement('div');
 const table_container = document.createElement('div');
+const modal_header = document.createElement("div");
 const modal_footer = document.createElement("div");
 const saveTxtBtn = document.createElement('button');
 const saveStorageBtn = document.createElement('button');
 const getStoredBtn = document.createElement('button');
 const delStoredBtn = document.createElement('button');
+const git_link = document.createElement("div");
 
 // Initilizes the content of the modal window
 function initModal(tabs) {
   modal.setAttribute("id", 'tabsurlModal');
-  modal.innerHTML = `<span class="tabsurlCloseModal">&times;</span>`;
+  
+  modal_header.setAttribute("id", 'tabsurlModalHeader');
+  modal_header.innerHTML = `<span class="tabsurlCloseModal">Close </span><span class="tabsurlCloseModalTimes">&times;</span>`;
 
-  modal_footer.setAttribute("id", 'tabsurlFooter');
+  modal_footer.setAttribute("id", 'tabsurlModalFooter');
   
   saveTxtBtn.setAttribute("id", 'tabsurlSaveTxt');
   saveTxtBtn.setAttribute("class", 'tabsurlBtn');
@@ -20,7 +24,7 @@ function initModal(tabs) {
 
   saveStorageBtn.setAttribute("id", 'tabsurlSaveStorage');
   saveStorageBtn.setAttribute("class", 'tabsurlBtn');
-  saveStorageBtn.textContent = 'Save storage';
+  saveStorageBtn.textContent = 'Store Tabs';
   
   getStoredBtn.setAttribute("id", 'tabsurlOpenStored');
   getStoredBtn.setAttribute("class", 'tabsurlBtn');
@@ -32,10 +36,18 @@ function initModal(tabs) {
   delStoredBtn.classList.add("class", 'tabsurlDBtn');
   delStoredBtn.textContent = 'Delete stored';
 
+  git_link.setAttribute("id", 'git_link');
+  git_link.innerHTML = `
+    <a href="https://github.com/LuigiCaradonna/TabsUrl" title="Github repo" target="_blank">
+      <img src="` + browser.runtime.getURL("icons/git-logo.png") + `" alt="Github logo" />
+    </a>
+  `;
+
   modal_footer.appendChild(saveTxtBtn);
   modal_footer.appendChild(saveStorageBtn);
   modal_footer.appendChild(getStoredBtn);
   modal_footer.appendChild(delStoredBtn);
+  modal_footer.appendChild(git_link);
 
   // Loops through all the open tabs
   for (let tab of tabs) {
@@ -52,6 +64,8 @@ function initModal(tabs) {
 
   table_container.setAttribute("id", 'tabsurlTCont');
 
+  // Add header to the modal window
+  modal.appendChild(modal_header);
   // Add table to the modal window
   table_container.appendChild(table_list);
   // Add table to the modal window

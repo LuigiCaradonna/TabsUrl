@@ -17,6 +17,8 @@ function openStored() {
         // Notify the bg script to open them
         notifyBackgroundPage(stored_list);
     });
+    // Close the overlay
+    destroy();
 }
 
 // Deletes all the data stored into the local storage

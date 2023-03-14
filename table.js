@@ -8,11 +8,6 @@ const table_body_list = document.createElement("tbody");
 // Builds the table containing the tabs list
 function initTableList() {
     table_list.setAttribute("id", 'tabsurlTable');
-    // table_header_th_list.setAttribute("colspan", 2);
-    // table_header_th_list.innerHTML = `<input type="checkbox" checked="checked">`;
-    // table_header_tr_list.appendChild(table_header_th_list);
-    // table_header_list.appendChild(table_header_tr_list);
-    // table_list.appendChild(table_header_list);
     table_list.appendChild(table_body_list);
 }
 

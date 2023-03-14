@@ -58,7 +58,10 @@ document.body.addEventListener('keyup', (e) => {
 // Mouse click event listener
 document.body.addEventListener("click", (e) => {
   // Remove the overlay when a click occurs outside of the modal or on the close icon
-  if (e.target.id == 'tabsurlOverlay' || e.target.classList.contains('tabsurlCloseModal')) {
+  if (
+    e.target.id == 'tabsurlOverlay' || 
+    e.target.classList.contains('tabsurlCloseModal') || 
+    e.target.classList.contains('tabsurlCloseModalTimes')) {
     destroy();
   }
   else if (e.target.classList.contains('tabsurlSelector')) {
