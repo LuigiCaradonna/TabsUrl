@@ -1,29 +1,19 @@
-let getStorage = browser.storage.local.get();
-let clearStorage = browser.storage.local.clear();
-
 browser.storage.onChanged.addListener(updateButtonsState);
 
 // Saves the selected tab into the local storage
 function saveToStorage() {
-    console.debug('Clearing the storage');
-    clearStorage.then(() => {
-        console.debug('Saving to storage');
+    browser.storage.local.clear().then(() => {
         // Gets the selected tabs' data
         const list_to_save = tabsListToSave();
-        console.debug(list_to_save);
         // Stores the list into the local storage
-        browser.storage.local.set(list_to_save).then(() => {
-            console.debug("Tabs stored!");
-        });
+        browser.storage.local.set(list_to_save);
     });
 }
 
 // Retrieves the info of the stored tabs and tells to the bg script to open them
 function openStored() {
-    console.debug('Get stored');
     // Get the stored tabs
-    getStorage.then(stored_list => {
-        console.debug('Opening stored');
+    browser.storage.local.get().then(stored_list => {
         // Notify the bg script to open them
         notifyBackgroundPage(stored_list);
     });
@@ -31,10 +21,7 @@ function openStored() {
 
 // Deletes all the data stored into the local storage
 function deleteStored() {
-    console.debug('delete stored');
-    clearStorage.then(() => {
-        console.debug('Storage cleared');
-    });
+    browser.storage.local.clear();
 }
 
 // Sends a message, then received by the background script which will open the tabs

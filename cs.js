@@ -1,7 +1,6 @@
 // Listens for a message from the backend script
 browser.runtime.onMessage.addListener(
   function (request, sender) {
-
     if (request.data) {
       init(request.data);
     }
@@ -9,20 +8,14 @@ browser.runtime.onMessage.addListener(
 
 // This will contain the data of the open tabs
 let tabs_data_list = [];
-console.debug("tabs_data_list");
-console.debug(tabs_data_list);
 // This will contain the checkboxes' ids of the selected URLs
 let tabs_selected = [];
-console.debug("tabs_selected");
-console.debug(tabs_selected);
 
 // Initializes all the elements
 function init(tabs) {
   // Remove the overlay if exists
   if(document.getElementById('tabsurlOverlay'))
     document.getElementById('tabsurlOverlay').remove();
-
-  console.debug(tabs);
 
   initTableList();
   initModal(tabs);
@@ -36,22 +29,14 @@ function tabsListToSave() {
 
   let key_int = 0;
 
-  console.debug('tabs selected: ' + tabs_selected);
   // Loop through all the tabs data
   for (const [key, value] of Object.entries(tabs_data_list)) {
-      console.debug('tabs_list key: ' + value.id + ': ' + value.title);
       key_int = parseInt(value.id);
       // If the current tab is among the selected ones
       if ( tabs_selected.includes(key_int) ) {
-          console.debug('Adding tab: ' + key_int);
           // Add the tab data to be saved
           tabs_to_save[key_int] = {id: value.id, title: value.title, url: value.url};
       }
-  }
-
-  // Only for debugging purposes
-  for (const [key, value] of Object.entries(tabs_to_save)) {
-    console.debug('tabs to save: ' + value.title);
   }
 
   // Return the data of the tabs to save
@@ -83,17 +68,13 @@ document.body.addEventListener("click", (e) => {
     if (cb) {
       // Add or remove the id from the list of the selected URLs according to the checkbox status
       if (cb.checked == true) {
-        console.debug('Add id: ' + e.target.id);
         tabs_selected.push(parseInt(e.target.id));
-        console.debug(tabs_selected);
       }
       else {
-        console.debug('Remove id: ' + e.target.id);
         const index = tabs_selected.indexOf(parseInt(e.target.id));
         if (index > -1) { // only splice array when item is found
           tabs_selected.splice(index, 1); // 2nd parameter means remove one item only
         }
-        console.debug(tabs_selected);
       }
     }
   }

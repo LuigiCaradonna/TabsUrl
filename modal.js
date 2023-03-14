@@ -37,9 +37,6 @@ function initModal(tabs) {
   modal_footer.appendChild(getStoredBtn);
   modal_footer.appendChild(delStoredBtn);
 
-  console.debug("list of tabs");
-  console.debug(tabs);
-
   // Loops through all the open tabs
   for (let tab of tabs) {
     // If the page shown inside the tab has a URL
@@ -52,9 +49,6 @@ function initModal(tabs) {
       urlRowElement(tab.id, tab.title);
     }
   }
-
-  console.debug("tabs_selected");
-  console.debug(tabs_selected);
 
   table_container.setAttribute("id", 'tabsurlTCont');
 
@@ -71,10 +65,7 @@ function initModal(tabs) {
 // Reads the local storage and sets the store and delete buttons enabled/disablad
 function updateButtonsState() {
   // Get the data from the storage
-  getStorage.then(updated_list => {
-    console.debug("Get stored on update buttons");
-    console.debug(updated_list);
-    console.debug(Object.keys(updated_list).length);
+  browser.storage.local.get().then(updated_list => {
     // If no tabs are stored
     if (Object.keys(updated_list).length === 0) {
       // Set the button to open the stored tabs as disabled
