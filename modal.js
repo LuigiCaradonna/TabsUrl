@@ -8,6 +8,7 @@ const saveStorageBtn = document.createElement('button');
 const getStoredBtn = document.createElement('button');
 const delStoredBtn = document.createElement('button');
 const git_link = document.createElement("div");
+const git_logo = browser.runtime.getURL("icons/git-logo.png");
 
 // Initilizes the content of the modal window
 function initModal(tabs) {
@@ -39,7 +40,7 @@ function initModal(tabs) {
   git_link.setAttribute("id", 'git_link');
   git_link.innerHTML = `
     <a href="https://github.com/LuigiCaradonna/TabsUrl" title="Github repo" target="_blank">
-      <img src="` + browser.runtime.getURL("icons/git-logo.png") + `" alt="Github logo" />
+      <img src="` + git_logo + `" alt="Github logo" />
     </a>
   `;
 

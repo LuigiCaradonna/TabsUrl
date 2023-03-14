@@ -5,7 +5,7 @@
 	"homepage_url": "https://github.com/LuigiCaradonna/TabsUrl",
 	"description": "Retrieves the URLs from the open tabs, the user can save them into a text file or store them into the local storage to open them again later.",
 	"version": "1.0.0",
-	"applications": {
+	"browser_specific_settings": {
 		"gecko": {
 			"id": "tabsurl@luigicaradonna.it"
 		}
