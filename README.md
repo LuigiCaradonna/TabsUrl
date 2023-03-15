@@ -7,7 +7,7 @@ It will be possible to save the URLs into a text file or inside the browser's st
   
 ### Installation  
 The extension is published on the official `Mozilla Add-on` website:  
-https://addons.mozilla.org/it/firefox/addon/tabsurl/
+https://addons.mozilla.org/firefox/addon/tabsurl/
 
 ### Usage
 Once the user clicks the extension's button, a modal window will appear.  
