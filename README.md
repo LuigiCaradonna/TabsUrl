@@ -19,3 +19,6 @@ When some tabs are stored inside the storage, the buttons `Open stored` and `Del
 `Delete stored` will delete all the URLs stored.  
 
 ![Interface](/resources/tabsurl.jpg)  
+  
+Chrome version:  
+https://github.com/LuigiCaradonna/TabsUrlForChrome
